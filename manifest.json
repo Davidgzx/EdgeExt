@@ -1,0 +1,30 @@
+{
+    "author": "muyuren",
+    "description": "Get information of the active tab.",
+    "manifest_version": 2,
+    "name": "edgeExt",
+    "version": "1.0",
+    "permissions": [
+        "tabs"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+
+            "js": [
+                "jquery-3.3.1.js",
+                "Scroll.js"
+            ],
+            "css":[
+                "hint.css"
+            ],
+            "run_at": "document_end" 
+        }
+    ],
+    "browser_action": {
+        "default_title": "edgeExt",
+        "default_popup": "GetTabInfo.html"
+    }
+}
