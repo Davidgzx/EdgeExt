@@ -1,0 +1,10 @@
+html {
+    width: 500px;
+}
+
+.page-header {
+    height: 110%;
+    text-align:center;
+    background-color:#eeeeee;
+    border-radius:5px;
+}

@@ -12,19 +12,20 @@
             "matches": [
                 "<all_urls>"
             ],
-
             "js": [
                 "jquery-3.3.1.js",
-                "Scroll.js"
+                "keyboard.js",
+                "scroll.js",
+                "hint.js"
             ],
-            "css":[
-                "hint.css"
+            "css": [
+                "vimEdge.css"
             ],
-            "run_at": "document_end" 
+            "run_at": "document_end"
         }
     ],
     "browser_action": {
         "default_title": "edgeExt",
-        "default_popup": "GetTabInfo.html"
+        "default_popup": "popUp.html"
     }
 }

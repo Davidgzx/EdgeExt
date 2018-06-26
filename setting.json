@@ -1,0 +1,16 @@
+{
+    "css": {
+
+        ".hints-before": {
+            "background-color": "#eeeeee",
+            "color": "black",
+            "font-size": "11pt",
+            "transform": "rotate(7deg)",
+            "font-family": "monospace",
+            "line-height": " 11 pt",
+            "position": "absolute",
+            "padding": "1 px"
+            
+        }
+    }
+}
