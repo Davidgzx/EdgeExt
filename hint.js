@@ -15,7 +15,7 @@ function showHints() {
     for (var i = 0; i < links.length; i++) {
         position = GetAbsPosition(links[i]);
         if (position != null) {
-            generateHints(links[i], hintContain);
+            generateHints(links[i],position, hintContain);
         }
     }
     document.body.appendChild(hintContain);
@@ -26,10 +26,10 @@ function hideHints() {
     $('.hints-after').remove();
 }
 
-function generateHints(element, container) {
+function generateHints(element, position, container) {
     let hintDiv = document.createElement('div');
     hintDiv.href = element.href;
-    hintDiv.innerHTML = element.innerHTML;
+    hintDiv.innerHTML = element.innerText;
     hintDiv.className = 'hints-before';
     hintDiv.style.left = position.left + 'px';
     hintDiv.style.top = position.top + 'px';
@@ -47,19 +47,19 @@ function isScrolledIntoView(elem) {
 
 function GetAbsPosition(el) {
     if (isScrolledIntoView(el)) {
-        //     let box = el.getBoundingClientRect();
-        //     let doc = el.ownerDocument;
-        //     let body = doc.body;
-        //     let html = doc.documentElement;
-        //     let clientTop = html.clientTop || body.clientTop || 0;
-        //     let clientLeft = html.clientLeft || body.clientLeft || 0;
-        //     let top = box.top + (self.pageYOffset || html.scrollTop || body.scrollTop) - clientTop;
-        //     let left = box.left + (self.pageXOffset || html.scrollLeft || body.scrollLeft) - clientLeft;
-        //     return {
-        //         top: top,
-        //         left: left,
-        //     }
+        let box = el.getBoundingClientRect();
+        let doc = el.ownerDocument;
+        let body = doc.body;
+        let html = doc.documentElement;
+        let clientTop = html.clientTop || body.clientTop || 0;
+        let clientLeft = html.clientLeft || body.clientLeft || 0;
+        let top = box.top + (self.pageYOffset || html.scrollTop || body.scrollTop) - clientTop;
+        let left = box.left + (self.pageXOffset || html.scrollLeft || body.scrollLeft) - clientLeft;
+        return {
+            top: top,
+            left: left,
+        }
 
-        return $(el).offset();
+        // return $(el).offset();
     }
 }
