@@ -10,11 +10,15 @@ function randomString(len) {
 }
 
 function showHints() {
-    let container = document.createDocumentFragment();
-    $('a:visible').each(function() {
-        generateHints(this, container);
-    });
-    document.body.appendChild(container);
+    let hintContain = document.createDocumentFragment();
+    links = $('a');
+    for (var i = 0; i < links.length; i++) {
+        position = GetAbsPosition(links[i]);
+        if (position != null) {
+            generateHints(links[i], hintContain);
+        }
+    }
+    document.body.appendChild(hintContain);
 }
 
 function hideHints() {
@@ -23,24 +27,15 @@ function hideHints() {
 }
 
 function generateHints(element, container) {
-    position = GetAbsPosition(element);
-    if (position != null) {
-        let hintDiv = document.createElement('div');
-        hintDiv.href = element.href;
-        hintDiv.innerHTML = element.innerHTML;
-        hintDiv.className = 'hints-before';
-        hintDiv.style.left = position.left + 'px';
-        hintDiv.style.top = position.top + 'px';
-        container.appendChild(hintDiv);
-    }
+    let hintDiv = document.createElement('div');
+    hintDiv.href = element.href;
+    hintDiv.innerHTML = element.innerHTML;
+    hintDiv.className = 'hints-before';
+    hintDiv.style.left = position.left + 'px';
+    hintDiv.style.top = position.top + 'px';
+    container.appendChild(hintDiv);
 }
 
-function isElemVisible(element, y) {
-    if ($(window).scrollTop() > y + $(element).outerHeight() || $(window).scrollTop() < y - $(window).height()) {
-        return false;
-    }
-    return true;
-}
 
 function isScrolledIntoView(elem) {
     let docViewTop = $(window).scrollTop();
@@ -51,16 +46,20 @@ function isScrolledIntoView(elem) {
 }
 
 function GetAbsPosition(el) {
-    let box = el.getBoundingClientRect();
-    let doc = el.ownerDocument;
-    let body = doc.body;
-    let html = doc.documentElement;
-    let clientTop = html.clientTop || body.clientTop || 0;
-    let clientLeft = html.clientLeft || body.clientLeft || 0;
-    let top = box.top + (self.pageYOffset || html.scrollTop || body.scrollTop) - clientTop;
-    let left = box.left + (self.pageXOffset || html.scrollLeft || body.scrollLeft) - clientLeft;
-    return {
-        top: top,
-        left: left,
-    };
+    if (isScrolledIntoView(el)) {
+        //     let box = el.getBoundingClientRect();
+        //     let doc = el.ownerDocument;
+        //     let body = doc.body;
+        //     let html = doc.documentElement;
+        //     let clientTop = html.clientTop || body.clientTop || 0;
+        //     let clientLeft = html.clientLeft || body.clientLeft || 0;
+        //     let top = box.top + (self.pageYOffset || html.scrollTop || body.scrollTop) - clientTop;
+        //     let left = box.left + (self.pageXOffset || html.scrollLeft || body.scrollLeft) - clientLeft;
+        //     return {
+        //         top: top,
+        //         left: left,
+        //     }
+
+        return $(el).offset();
+    }
 }
