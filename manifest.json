@@ -14,9 +14,9 @@
             ],
             "js": [
                 "jquery-3.3.1.js",
-                "keyboard.js",
                 "scroll.js",
-                "hint.js"
+                "hint.js",
+                "keyboard.js"
             ],
             "css": [
                 "vimEdge.css"

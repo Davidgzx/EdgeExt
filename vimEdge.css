@@ -1,26 +1,32 @@
 .hints-before {
+    font-weight: 600;
     background-color: #eeeeee;
     color: black;
-    font-size: 11pt;
-    transform:rotate(7deg);
-    font-family: monospace;
+    opacity: 0.9;
+    font-size: 10pt;
+    border-radius: 5px;
+    border: 1px solid #333333;
+    box-shadow: 2px 2px 2px #888888;
     line-height: 11pt;
     position: absolute;
-    padding: 1px;
+    padding: 2px;
+    transform: translate(-3px, -6px) rotate(7deg);
 }
+
 .hints-after-notChoose {
     background-color: #eeeeee;
     color: black;
     opacity: 0.5;
     font-size: 12pt;
-    transform:rotate(7deg);
+    transform: rotate(7deg);
     font-family: monospace;
     line-height: 12pt;
     position: absolute;
     padding: 2px;
 }
+
 .hints-after-choose {
-    transform:rotate(7deg);
+    transform: rotate(7deg);
     background-color: black;
     font: bold;
     color: white;
@@ -31,32 +37,39 @@
     line-height: 12pt;
     padding: 2px;
 }
-.container{
 
+.container {
     text-align: center;
-    opacity: 0.2;
-    position: absolute;
-    font-weight: bold;
-    font-family: Helvetica;
+    opacity: 0.8;
     font-size: 30pt;
-    border-radius: 15px;
-    background-color: #c0c0c0;
-    position: fixed;
+    position: absolute;
     line-height: 60px;
 }
-.mode {
-    width: 100px;
-    height: 60px;
+
+#modePop {
+    font-family: Helvetica;
+    font-size: 8pt;
+    font-weight: bold;
+}
+
+#subModePop {
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 6pt;
+}
+
+#mode {
+    animation-name: 'CfadeInUp';
+    width: 120px;
+    height: 25px;
     border: 1px;
     text-align: center;
     opacity: 0.9;
     font-weight: bold;
-    font-family: Helvetica;
-    font-size: 30pt;
+    font-size: 10pt;
     border-radius: 15px;
     background-color: #c0c0c0;
     position: fixed;
     bottom: 5px;
     right: 5px;
-    line-height: 60px;
 }

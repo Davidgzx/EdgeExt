@@ -1,41 +1,38 @@
-function randomString(len) {　　
+function randomString(len) {
     len = len || 32;
-    var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'; /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/ 　　
-    var maxPos = $chars.length;　　
-    var pwd = '';　　
-    for (i = 0; i < len; i++) {　　　　
-        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));　　
-    }　　
+    let $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'; /** **默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+    let maxPos = $chars.length;
+    let pwd = '';
+    for (i = 0; i < len; i++) {
+        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+    }
     return pwd;
 }
 
 function showHints() {
-    $(".hints-before").remove();
-    $(".hints-after").remove();
-    generateContainer();
-    $("a:visible").each(function () {
-        generateHints(this)
-    })
-}
-
-function generateContainer() {
-    var container = document.createElement('div')
-    container.className = 'container';
+    let container = document.createDocumentFragment();
+    $('a:visible').each(function() {
+        generateHints(this, container);
+    });
     document.body.appendChild(container);
 }
 
-function generateHints(element) {
+function hideHints() {
+    $('.hints-before').remove();
+    $('.hints-after').remove();
+}
+
+function generateHints(element, container) {
     position = GetAbsPosition(element);
     if (position != null) {
-        var hintDiv = document.createElement('div')
-        hintDiv.href = element.href
-        hintDiv.innerHTML = randomString(4)
+        let hintDiv = document.createElement('div');
+        hintDiv.href = element.href;
+        hintDiv.innerHTML = element.innerHTML;
         hintDiv.className = 'hints-before';
         hintDiv.style.left = position.left + 'px';
         hintDiv.style.top = position.top + 'px';
-        element.parentNode.appendChild(hintDiv)
+        container.appendChild(hintDiv);
     }
-
 }
 
 function isElemVisible(element, y) {
@@ -44,29 +41,26 @@ function isElemVisible(element, y) {
     }
     return true;
 }
-function isScrolledIntoView(elem)
-{
-    var docViewTop = $(window).scrollTop();
-    var docViewBottom = docViewTop + $(window).height();
-    var elemTop = $(elem).offset().top;
-    var elemBottom = elemTop + $(elem).height();
+
+function isScrolledIntoView(elem) {
+    let docViewTop = $(window).scrollTop();
+    let docViewBottom = docViewTop + $(window).height();
+    let elemTop = $(elem).offset().top;
+    let elemBottom = elemTop + $(elem).height();
     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
 }
-function GetAbsPosition(element) {
-    var t = element.offsetTop;
-    if (isScrolledIntoView(element)) {
-        var l = element.offsetLeft;
-        if (t < 10) {
-            t += 10;
-        }
-        if (l < 10) {
-            l += 10;
-        }
-        return {
-            left: l,
-            top: t
-        }
-    } else {
-        return null;
-    }//
+
+function GetAbsPosition(el) {
+    let box = el.getBoundingClientRect();
+    let doc = el.ownerDocument;
+    let body = doc.body;
+    let html = doc.documentElement;
+    let clientTop = html.clientTop || body.clientTop || 0;
+    let clientLeft = html.clientLeft || body.clientLeft || 0;
+    let top = box.top + (self.pageYOffset || html.scrollTop || body.scrollTop) - clientTop;
+    let left = box.left + (self.pageXOffset || html.scrollLeft || body.scrollLeft) - clientLeft;
+    return {
+        top: top,
+        left: left,
+    };
 }
