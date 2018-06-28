@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
     let mode = new Mode();
     getSettings();
     document.onkeydown =
@@ -88,22 +88,22 @@ $(function() {
 function Mode() {
     let mode = 'normal';
     let subMode = 'normal';
-    this.changeMode = function(newMode) {
+    this.changeMode = function (newMode) {
         mode = newMode;
         this.changePopUp();
     };
-    this.changeSubMode = function(newSubMode) {
+    this.changeSubMode = function (newSubMode) {
         subMode = newSubMode;
         this.changePopUp();
     };
-    this.getMode = function() {
+    this.getMode = function () {
         return mode;
     };
-    this.getSubMode = function() {
+    this.getSubMode = function () {
         return subMode;
     };
 
-    this.changePopUp = function() {
+    this.changePopUp = function () {
         try {
             clearTimeout(popup);
         } catch (error) {};
@@ -113,7 +113,7 @@ function Mode() {
             mode + '</div>' + '<div id=\'subModePop\'>' + subMode + '</div>';
         popUp.id = 'mode';
         document.body.appendChild(popUp);
-        popup = setTimeout(function() {
+        popup = setTimeout(function () {
             $('#mode').remove();
         }, 500);
     };
@@ -123,7 +123,7 @@ function Mode() {
 function getSettings() {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', 'setting.json', true);
-    xhr.onload = function() {
+    xhr.onload = function () {
         if (xhr.readyState == 4) {
             if (xmlHttp.status == 200 || xmlHttp.status == 0) {
                 let params = JSON.parse(xhr.response);

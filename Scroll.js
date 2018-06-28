@@ -8,28 +8,29 @@ let pos = {
  */
 function smoothScroll(fun, ratio) {
     timer = 0;
-    for (let dur = 0; dur < ratio * pos.distance; dur +=pos.speed) {
-        timer = timer + 1/ratio;
-        t = setTimeout(fun, timer);
+    let speed=ratio*pos.speed;
+    for (let dur = 0; dur < ratio * pos.distance; dur +=speed) {
+        timer = timer + 1;
+        t = setTimeout(fun, timer,speed);
     }
 }
 /**
  */
-function scrollRight() {
-    window.scrollBy(pos.speed, 0);
+function scrollRight(speed) {
+    window.scrollBy(speed, 0);
 }
 /**
  */
-function scrollDown() {
-    window.scrollBy(0, pos.speed);
+function scrollDown(speed) {
+    window.scrollBy(0, speed);
 }
 /**
  */
-function scrollUp() {
-    window.scrollBy(0, -pos.speed);
+function scrollUp(speed) {
+    window.scrollBy(0, -speed);
 }
 /**
  */
-function scrollLeft() {
-    window.scrollBy(-pos.speed, 0);
+function scrollLeft(speed) {
+    window.scrollBy(-speed, 0);
 }
