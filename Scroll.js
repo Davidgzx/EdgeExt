@@ -8,7 +8,7 @@ let pos = {
  */
 function smoothScroll(fun, ratio) {
     timer = 0;
-    let speed=ratio*pos.speed;
+    let speed=ratio*pos.speed;//
     for (let dur = 0; dur < ratio * pos.distance; dur +=speed) {
         timer = timer + 1;
         t = setTimeout(fun, timer,speed);

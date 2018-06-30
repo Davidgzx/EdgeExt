@@ -1,5 +1,6 @@
 $(function () {
     let mode = new Mode();
+    mode.changeMode('command');
     getSettings();
     document.onkeydown =
         function f(e) {
@@ -72,22 +73,30 @@ $(function () {
                 if (e.keyCode == 70) {
                     if (mode.getMode() != 'command') {
                         mode.changeMode('command');
-                    } else if ($('.hints-before').length != 0) {
+                    } else if ($(".hintsEdge").length != 0) {
                         hideHints();
                         mode.changeSubMode('default');
                     } else if (mode.getSubMode() != 'hints') {
                         mode.changeSubMode('hints');
                         showHints();
+                        $("#hintContainer").bind('click', function () {
+                            if (mode.getSubMode() == 'hints') {
+                                hideHints();
+                                mode.changeSubMode('default');
+                            }
+                        });
                     }
                 }
             }
         };
+
 });
+
 /**
  */
 function Mode() {
     let mode = 'normal';
-    let subMode = 'normal';
+    let subMode = 'default';
     this.changeMode = function (newMode) {
         mode = newMode;
         this.changePopUp();
@@ -115,7 +124,7 @@ function Mode() {
         document.body.appendChild(popUp);
         popup = setTimeout(function () {
             $('#mode').remove();
-        }, 500);
+        }, 1000);
     };
 }
 /**
@@ -125,7 +134,7 @@ function getSettings() {
     xhr.open('GET', 'setting.json', true);
     xhr.onload = function () {
         if (xhr.readyState == 4) {
-            if (xmlHttp.status == 200 || xmlHttp.status == 0) {
+            if (xhr.status == 200 || xhr.status == 0) {
                 let params = JSON.parse(xhr.response);
                 console.log(params);
             }

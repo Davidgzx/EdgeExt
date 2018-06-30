@@ -1,39 +1,74 @@
-function randomString(len) {
-    len = len || 32;
-    let $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'; /** **默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
-    let maxPos = $chars.length;
-    let pwd = '';
-    for (i = 0; i < len; i++) {
-        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+const chars = 'ABCDEFGHJKMNPQRSTWXYZ';
+
+function hintCodes(chars, count) {
+    let base = chars.length;
+    if (count <= base) {
+        return chars.slice(0, count).split('');
     }
-    return pwd;
+    let codeWord = function (n, b) {
+        let word = [];
+        for (let i = 0; i < b; i++) {
+            word.push(chars.charAt(n % base));
+            n = ~~(n / base);
+        }
+        return word.reverse().join('');
+    };
+    let b = Math.ceil(Math.log(count) / Math.log(base));
+    let cutoff = Math.pow(base, b) - count;
+    let codes0 = [];
+    let codes1 = [];
+    let codeIndex = 0;
+    for (let l = ~~(cutoff / (base - 1)); codeIndex < l; codeIndex++) {
+        codes0.push(codeWord(codeIndex, b - 1));
+    }
+    codes0.sort();
+    for (; codeIndex < count; codeIndex++) {
+        codes1.push(codeWord(codeIndex + cutoff, b));
+    }
+    codes1.sort();
+    return codes0.concat(codes1);
 }
 
+
 function showHints() {
-    let hintContain = document.createElement('div');
-    hintContain.id="container"
+    let hintContainer = document.createElement('div');
+    hintContainer.id = 'hintContainer';
+    // console.log($(this).outerWidth()+"  "+document.body.clientHeight)
+    hintContainer.style.width = $(document).width()+'px';
+    hintContainer.style.height =$(document).height()+'px';
     links = getClickableLinks();
-    for (var i = 0; i < links.length; i++) {
+    var j = 0;
+
+    for (let i = 0; i < links.length; i++) {
         position = getVisibleBoundingRect(links[i]);
         if (position != null) {
-            generateHints(links[i], position, hintContain);
+            j++
+            generateHints(links[i], position, hintContainer);
         }
     }
-    document.body.appendChild(hintContain);
+
+    document.body.appendChild(hintContainer);
+    console.log($('#hintContainer').height())
+    innerText = hintCodes(chars, j);
+    makeHintsText(innerText);
 }
-function clickContainer(){
-    
+
+function makeHintsText(innerText) {
+    $(".hintsEdge").each(function (index, element) {
+        element.innerText = innerText[index];
+    });
 }
+
 function hideHints() {
-    $('.hints-before').remove();
-    $('.hints-after').remove();
+    $('.hintsEdge').remove();
+    $('#hintContainer').remove();
+
 }
 
 function generateHints(element, pos, container) {
     let hintDiv = document.createElement('div');
     hintDiv.href = element.href;
-    hintDiv.innerHTML = element.innerText;
-    hintDiv.className = 'hints-before';
+    hintDiv.className = 'hintsEdge';
     hintDiv.style.left = pos.left + document.scrollingElement.scrollLeft + 'px';
     hintDiv.style.top = pos.top + document.scrollingElement.scrollTop + 'px';
     container.appendChild(hintDiv);
@@ -86,31 +121,40 @@ function getClickableLinks() {
 }
 
 function getVisibleBoundingRect(node) {
-    var rects = node.getClientRects();
-    if (rects.length === 0)
+    let rects = node.getClientRects();
+    if (rects.length === 0) {
         return null;
+    }
+    if (node.offsetWidth === 0 && node.offsetHeight === 0) return null;
+    if (node.getClientRects().length === 0) return null;
 
-    var result = null;
+    var style = window.getComputedStyle(node);
+
+    if (style.visibility === 'hidden') return null;
+    if (style.opacity === '0') return null;
+    let result = null;
 
     outer:
-        for (var i = 0; i < rects.length; i++) {
-            var r = rects[i];
+        for (let i = 0; i < rects.length; i++) {
+            let r = rects[i];
 
             if (r.height <= 1 || r.width <= 1) {
-                var children = node.children;
-                for (var j = 0; j < children.length; j++) {
-                    var child = children[j];
-                    var childRect = this.getVisibleBoundingRect(child);
+                let children = node.children;
+                for (let j = 0; j < children.length; j++) {
+                    let child = children[j];
+                    let childRect = getVisibleBoundingRect(child);
                     if (childRect !== null) {
                         result = childRect;
                         break outer;
                     }
                 }
             } else {
-                if (r.left + r.width < 5 || r.top + r.height < 5)
+                if (r.left + r.width < 5 || r.top + r.height < 5) {
                     continue;
-                if (innerWidth - r.left < 5 || innerHeight - r.top < 5)
+                }
+                if (innerWidth - r.left < 5 || innerHeight - r.top < 5) {
                     continue;
+                }
 
                 result = r;
                 break;
@@ -118,14 +162,10 @@ function getVisibleBoundingRect(node) {
         }
 
     if (result !== null) {
-
         result = {
             left: Math.max(0, result.left),
-            right: Math.min(result.right, innerWidth),
             top: Math.max(0, result.top),
-            bottom: Math.min(result.bottom, innerHeight),
-            width: result.width,
-            height: result.height,
+
         };
     }
 
