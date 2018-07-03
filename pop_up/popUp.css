@@ -1,6 +1,14 @@
 html {
     width: 500px;
 }
+.key {
+    text-align: center !important; 
+    background-color: #eeeeee;
+    color: black;
+    border-radius: 5px;
+    border: 1px solid #333333;
+    transform: translateX(50%)
+}
 
 .page-header {
     height: 110%;

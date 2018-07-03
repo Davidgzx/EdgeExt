@@ -1,36 +1,41 @@
-let pos = {
-    distance: 200,
-    speed: 2,
-};
-/**
- * @param  {function} fun
- * @param  {number} ratio
- */
-function smoothScroll(fun, ratio) {
-    timer = 0;
-    let speed=ratio*pos.speed;//
-    for (let dur = 0; dur < ratio * pos.distance; dur +=speed) {
-        timer = timer + 1;
-        t = setTimeout(fun, timer,speed);
+function Scroller(height) {
+    this.duration = height / 16
+
+    this.smoothScroll = function (fun, ) {
+        let timer = 0;
+        speed = this.duration / 100
+        for (let dur = 0; dur <= this.duration; dur += speed) {
+            timer = timer + 1;
+            t = setTimeout(fun, timer, speed);
+        }
     }
-}
-/**
- */
-function scrollRight(speed) {
-    window.scrollBy(speed, 0);
-}
-/**
- */
-function scrollDown(speed) {
-    window.scrollBy(0, speed);
-}
-/**
- */
-function scrollUp(speed) {
-    window.scrollBy(0, -speed);
-}
-/**
- */
-function scrollLeft(speed) {
-    window.scrollBy(-speed, 0);
+    /**
+     */
+    this.scrollRight = function (speed) {
+        window.scrollBy(speed, 0);
+    }
+    /**
+     */
+    this.scrollDown = function (speed) {
+        window.scrollBy(0, speed);
+    }
+    /**
+     */
+    this.scrollUp = function (speed) {
+        window.scrollBy(0, -speed);
+    }
+    /**
+     */
+    this.scrollLeft = function (speed) {
+        window.scrollBy(-speed, 0);
+    }
+    this.smoothScrollQuarter = function (fun) {
+        let timer = 0;
+        let distance = $(window).height();
+        let speed = (distance / 100);
+        for (let dur = 0; dur <= distance; dur += speed) {
+            timer = timer + 1;
+            t = setTimeout(fun, timer, speed);
+        }
+    }
 }

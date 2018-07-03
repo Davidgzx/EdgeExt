@@ -66,17 +66,20 @@ const hintKeys = {
 const scrollKeys = {
     68: 'd',
     72: 'h',
-    73: 'i',
     74: 'j',
     75: 'k',
+    76: 'l',
     85: 'u',
 }
+const mode = new Mode();
+const scroller = new Scroller(3200);
 $(function () {
-    let mode = new Mode();
+    console.log(scroller.pos)
     mode.changeMode('command');
     document.onkeydown = function
     f(e) {
         e = e || window.event;
+        // if ($('input').is(':focus') === false) {
         if (mode.getMode() != 'command' && e.keyCode == 27) {
             mode.changeMode('command');
         } else {
@@ -124,22 +127,22 @@ $(function () {
                 if (mode.getSubMode() == 'scroll') {
                     switch (e.keyCode) {
                         case 72:
-                            smoothScroll(scrollLeft, 1);
+                            scroller.smoothScroll(scroller.scrollLeft, 1);
                             break;
                         case 74:
-                            smoothScroll(scrollDown, 1);
+                            scroller.smoothScroll(scroller.scrollDown, 1);
                             break;
                         case 75:
-                            smoothScroll(scrollUp, 1);
+                            scroller.smoothScroll(scroller.scrollUp, 1);
                             break;
                         case 76:
-                            smoothScroll(scrollRight, 1);
+                            scroller.smoothScroll(scroller.scrollRight, 1);
                             break;
                         case 85:
-                            smoothScroll(scrollUp, 4);
+                            scroller.smoothScrollQuarter(scroller.scrollUp);
                             break;
                         case 68:
-                            smoothScroll(scrollDown, 4);
+                            scroller.smoothScrollQuarter(scroller.scrollDown);
                             break;
                     }
                 }
@@ -168,6 +171,7 @@ $(function () {
                 }
             }
         }
+        // }
     };
 });
 
