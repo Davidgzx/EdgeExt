@@ -7,25 +7,24 @@
     "permissions": [
         "tabs"
     ],
-    "content_scripts": [
-        {
-            "matches": [
-                "<all_urls>"
-            ],
-            "js": [
-                "jquery-3.3.1.js",
-                "scroll.js",
-                "hint.js",
-                "keyboard.js"
-            ],
-            "css": [
-                "vimEdge.css"
-            ],
-            "run_at": "document_end"
-        }
-    ],
+    "content_scripts": [{
+        "matches": [
+            "<all_urls>"
+        ],
+        "js": [
+            "jquery-3.3.1.js",
+            "content_scripts/scroll.js",
+            "content_scripts/hint.js",
+            "content_scripts/mode.js",
+            "content_scripts/keyboard.js"
+        ],
+        "css": [
+            "vimEdge.css"
+        ],
+        "run_at": "document_end"
+    }],
     "browser_action": {
-        "default_title": "edgeExt",
-        "default_popup": "popUp.html"
+        "default_title": "pop_up/edgeExt",
+        "default_popup": "pop_up/popUp.html"
     }
 }

@@ -1,7 +1,10 @@
 module.exports = {
     "extends": "google",
-    "parserOptions": {
-        "ecmaVersion": 7,
-        "sourceType": "module"
-      }
+    "env": {
+        "jquery": true,
+        "es6": true
+    },
+    "rules": {
+        "indent": ["error", 4]
+    },
 };

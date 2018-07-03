@@ -1,4 +1,4 @@
-const chars = 'ABCDEFGHJKMNPQRSTWXYZ';
+const hintChars = '2389axbiopqgnm'.toUpperCase();
 
 function hintCodes(chars, count) {
     let base = chars.length;
@@ -34,41 +34,49 @@ function showHints() {
     let hintContainer = document.createElement('div');
     hintContainer.id = 'hintContainer';
     // console.log($(this).outerWidth()+"  "+document.body.clientHeight)
-    hintContainer.style.width = $(document).width()+'px';
-    hintContainer.style.height =$(document).height()+'px';
+    hintContainer.style.width = $(document).width() + 'px';
+    hintContainer.style.height = $(document).height() + 'px';
+    console.time(1);
     links = getClickableLinks();
-    var j = 0;
+    console.timeEnd(1);
+    let j = 0;
+    console.time(2);
+
 
     for (let i = 0; i < links.length; i++) {
         position = getVisibleBoundingRect(links[i]);
         if (position != null) {
-            j++
+            j++;
             generateHints(links[i], position, hintContainer);
         }
     }
+    console.timeEnd(2);
 
     document.body.appendChild(hintContainer);
-    console.log($('#hintContainer').height())
-    innerText = hintCodes(chars, j);
+    // console.log($('#hintContainer').height())
+    innerText = hintCodes(hintChars, j);
+    console.log(innerText);
     makeHintsText(innerText);
 }
 
 function makeHintsText(innerText) {
-    $(".hintsEdge").each(function (index, element) {
-        element.innerText = innerText[index];
+    $('.hintsEdge').each(function (index, element) {
+        let strings=innerText[index].split("");
+        for (var i=0;i<strings.length;i++){
+            element.innerHTML+="<span>"+strings[i]+"</span>"
+        }
     });
 }
 
 function hideHints() {
     $('.hintsEdge').remove();
     $('#hintContainer').remove();
-
 }
 
 function generateHints(element, pos, container) {
     let hintDiv = document.createElement('div');
-    hintDiv.href = element.href;
     hintDiv.className = 'hintsEdge';
+    hintDiv.href = element;
     hintDiv.style.left = pos.left + document.scrollingElement.scrollLeft + 'px';
     hintDiv.style.top = pos.top + document.scrollingElement.scrollTop + 'px';
     container.appendChild(hintDiv);
@@ -103,20 +111,8 @@ function generateHints(element, pos, container) {
 // }
 
 function getClickableLinks() {
-    let elems = $('a,button,area,select,textarea,input:visible');
-
-
-    // switch (true) {
-    //     case node.hasAttribute('contenteditable'):
-    //     case node.hasAttribute('tabindex'):
-    //     case node.hasAttribute('onclick'):
-    //     case node.hasAttribute('aria-haspopup'):
-    //     case node.hasAttribute('data-cmd'):
-    //     case node.hasAttribute('jsaction'):
-    //     case node.hasAttribute('data-ga-click'):
-    //     case node.hasAttribute('aria-selected'):
-    //         return true;
-    // }
+    let elems = $('a,button,area,select,textarea,input,[tabindex],[aria-haspopup],' +
+        '[contenteditable],[onclick],[data-cmd],[jsaction],[data-ga-click],[aria-selected]:visible');
     return elems;
 }
 
@@ -125,16 +121,9 @@ function getVisibleBoundingRect(node) {
     if (rects.length === 0) {
         return null;
     }
-    if (node.offsetWidth === 0 && node.offsetHeight === 0) return null;
-    if (node.getClientRects().length === 0) return null;
-
-    var style = window.getComputedStyle(node);
-
-    if (style.visibility === 'hidden') return null;
-    if (style.opacity === '0') return null;
     let result = null;
 
-    outer:
+    outer: {
         for (let i = 0; i < rects.length; i++) {
             let r = rects[i];
 
@@ -160,6 +149,7 @@ function getVisibleBoundingRect(node) {
                 break;
             }
         }
+    }
 
     if (result !== null) {
         result = {
