@@ -79,99 +79,99 @@ $(function () {
     document.onkeydown = function
     f(e) {
         e = e || window.event;
-        // if ($('input').is(':focus') === false) {
-        if (mode.getMode() != 'command' && e.keyCode == 27) {
-            mode.changeMode('command');
-        } else {
-            if (mode.getSubMode() == 'hints' && hintKeys.hasOwnProperty(e.keyCode)) {
-                let hints = $('.hintsEdge').children(':first-child');
-                let key = e.keyCode;
-                hints.each(function (index) {
-                    if (hints[index].innerHTML == String.fromCharCode(key)) {
-                        $(hints[index]).remove();
-                    } else {
-                        hints[index].parentNode.remove();
-                    }
-                });
-                if ($('.hintsEdge').children().length == 0) {
-                    let clicking = $('.hintsEdge')[0].href;
-                    hintGenerator.hideHints();
-                    mode.changeSubMode('default');
-                    clicking.click();
-                }
-            }
-            if (e.keyCode == 27) {
-                if (mode.getSubMode() == 'hints') {
-                    hintGenerator.hideHints();
-                    mode.changeSubMode('default');
-                } else {
-                    hintGenerator.hideHints();
-                    mode.changeMode('normal');
-                    mode.changeSubMode('default');
-                }
-            }
-            if (e.keyCode == 84) {
-                hintGenerator.hideHints();
-                window.open();
-            }
-            if (e.keyCode == 82) {
-                window.location.reload();
-            }
-            if (scrollKeys.hasOwnProperty(e.keyCode) && !e.shiftKey) {
-                if (mode.getMode() != 'command') {
-                    mode.changeMode('command');
-                } else if (mode.getSubMode() != 'scroll' && mode.getMode() == 'command') {
-                    hintGenerator.hideHints();
-                    mode.changeSubMode('scroll');
-                }
-                if (mode.getSubMode() == 'scroll') {
-                    switch (e.keyCode) {
-                        case 72:
-                            scroller.smoothScroll(scroller.scrollLeft, 1);
-                            break;
-                        case 74:
-                            scroller.smoothScroll(scroller.scrollDown, 1);
-                            break;
-                        case 75:
-                            scroller.smoothScroll(scroller.scrollUp, 1);
-                            break;
-                        case 76:
-                            scroller.smoothScroll(scroller.scrollRight, 1);
-                            break;
-                        case 85:
-                            scroller.smoothScrollQuarter(scroller.scrollUp);
-                            break;
-                        case 68:
-                            scroller.smoothScrollQuarter(scroller.scrollDown);
-                            break;
-                    }
-                }
-            }
-            if (e.keyCode == 72 && e.shiftKey) {
-                window.history.back();
-            }
-            if (e.keyCode == 76 && e.shiftKey) {
-                window.history.forward();
-            }
-            if (e.keyCode == 70) {
-                if (mode.getMode() != 'command') {
-                    mode.changeMode('command');
-                } else if ($('.hintsEdge').length != 0) {
-                    hintGenerator.hideHints();
-                    mode.changeSubMode('default');
-                } else if (mode.getSubMode() != 'hints') {
-                    mode.changeSubMode('hints');
-                    hintGenerator.showHints();
-                    $('#hintContainer').bind('click', function () {
-                        if (mode.getSubMode() == 'hints') {
-                            hintGenerator.hideHints();
-                            mode.changeSubMode('default');
+        if ($('input').is(':focus') === false) {
+            if (mode.getMode() != 'command' && e.keyCode == 27) {
+                mode.changeMode('command');
+            } else {
+                if (mode.getSubMode() == 'hints' && hintKeys.hasOwnProperty(e.keyCode)) {
+                    let hints = $('.hintsEdge').children(':first-child');
+                    let key = e.keyCode;
+                    hints.each(function (index) {
+                        if (hints[index].innerHTML == String.fromCharCode(key)) {
+                            $(hints[index]).remove();
+                        } else {
+                            hints[index].parentNode.remove();
                         }
                     });
+                    if ($('.hintsEdge').children().length == 0) {
+                        let clicking = $('.hintsEdge')[0].href;
+                        hintGenerator.hideHints();
+                        mode.changeSubMode('default');
+                        clicking.click();
+                    }
+                }
+                if (e.keyCode == 27) {
+                    if (mode.getSubMode() == 'hints') {
+                        hintGenerator.hideHints();
+                        mode.changeSubMode('default');
+                    } else {
+                        hintGenerator.hideHints();
+                        mode.changeMode('normal');
+                        mode.changeSubMode('default');
+                    }
+                }
+                if (e.keyCode == 84) {
+                    hintGenerator.hideHints();
+                    window.open();
+                }
+                if (e.keyCode == 82) {
+                    window.location.reload();
+                }
+                if (scrollKeys.hasOwnProperty(e.keyCode) && !e.shiftKey) {
+                    if (mode.getMode() != 'command') {
+                        mode.changeMode('command');
+                    } else if (mode.getSubMode() != 'scroll' && mode.getMode() == 'command') {
+                        hintGenerator.hideHints();
+                        mode.changeSubMode('scroll');
+                    }
+                    if (mode.getSubMode() == 'scroll') {
+                        switch (e.keyCode) {
+                            case 72:
+                                scroller.smoothScroll(scroller.scrollLeft, 1);
+                                break;
+                            case 74:
+                                scroller.smoothScroll(scroller.scrollDown, 1);
+                                break;
+                            case 75:
+                                scroller.smoothScroll(scroller.scrollUp, 1);
+                                break;
+                            case 76:
+                                scroller.smoothScroll(scroller.scrollRight, 1);
+                                break;
+                            case 85:
+                                scroller.smoothScrollQuarter(scroller.scrollUp);
+                                break;
+                            case 68:
+                                scroller.smoothScrollQuarter(scroller.scrollDown);
+                                break;
+                        }
+                    }
+                }
+                if (e.keyCode == 72 && e.shiftKey) {
+                    window.history.back();
+                }
+                if (e.keyCode == 76 && e.shiftKey) {
+                    window.history.forward();
+                }
+                if (e.keyCode == 70) {
+                    if (mode.getMode() != 'command') {
+                        mode.changeMode('command');
+                    } else if ($('.hintsEdge').length != 0) {
+                        hintGenerator.hideHints();
+                        mode.changeSubMode('default');
+                    } else if (mode.getSubMode() != 'hints') {
+                        mode.changeSubMode('hints');
+                        hintGenerator.showHints();
+                        $('#hintContainer').bind('click', function () {
+                            if (mode.getSubMode() == 'hints') {
+                                hintGenerator.hideHints();
+                                mode.changeSubMode('default');
+                            }
+                        });
+                    }
                 }
             }
         }
-        // }
     };
 });
 
