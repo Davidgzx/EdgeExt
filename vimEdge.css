@@ -8,8 +8,8 @@
     border: 1px solid #333333;
     box-shadow: 2px 2px 2px #222222;
     line-height: 11pt;
-    z-index: 2147483646 !important;
     position: absolute;
+    z-index: 2147483646 !important;
     padding: 2px;
     transform: translate(-3px, -6px) rotate(5deg);
 }

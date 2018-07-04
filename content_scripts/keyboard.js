@@ -58,7 +58,6 @@ const hintKeys = {
     79: 'o',
     80: 'p',
     81: 'q',
-    71: 'g',
     77: 'm',
     78: 'n',
     65: 'a',
@@ -95,7 +94,7 @@ $(function () {
                         if (hints[index].innerHTML == String.fromCharCode(key)) {
                             $(hints[index]).remove();
                         } else {
-                            hints[index].parentNode.remove();
+                            $(hints[index]).parent().remove();
                         }
                     });
                     if ($('.hintsEdge').children().length == 0) {
@@ -105,13 +104,10 @@ $(function () {
                         // console.log(clicking.tagName.toLocaleLowerCase())
                         $(clicking).trigger('focus');
                         clicking.click();
-
-
                     }
                 }
                 if (e.keyCode == 27) {
                     e.preventDefault();
-                    z
                     if (mode.getSubMode() == 'hints') {
                         hintGenerator.hideHints();
                         mode.changeSubMode('default');
@@ -133,14 +129,12 @@ $(function () {
                 }
                 if (scrollKeys.hasOwnProperty(e.keyCode) && !e.shiftKey) {
                     e.preventDefault();
-
+                    if (mode.getSubMode() == 'hints' && mode.getMode() == 'command') {
+                        hintGenerator.hideHints();
+                    }
                     if (mode.getMode() != 'command') {
                         mode.changeMode('command');
-                    } else if (mode.getSubMode() != 'scroll' && mode.getMode() == 'command') {
-                        hintGenerator.hideHints();
-                        mode.changeSubMode('scroll');
-                    }
-                    if (mode.getSubMode() == 'scroll') {
+                    } else {
                         switch (e.keyCode) {
                             case 72:
                                 scroller.smoothScroll(scroller.scrollLeft, 1);
@@ -160,6 +154,7 @@ $(function () {
                             case 68:
                                 scroller.smoothScrollQuarter(scroller.scrollDown);
                                 break;
+
                         }
                     }
                 }

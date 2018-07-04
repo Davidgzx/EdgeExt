@@ -115,9 +115,8 @@ function HintGenerator(Chars) {
         }
         if (result !== null) {
             result = {
-                left: Math.max(0, result.left),
-                top: Math.max(0, result.top),
-
+                left: Math.max(10, result.left),
+                top: Math.max(10, result.top),
             };
         }
         return result;
