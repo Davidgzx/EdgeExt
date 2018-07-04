@@ -122,13 +122,18 @@ $(function () {
                     }
                 }
                 if (e.keyCode == 84) {
+                    e.preventDefault();
+
                     hintGenerator.hideHints();
                     window.open();
                 }
                 if (e.keyCode == 82) {
+                    e.preventDefault();
                     window.location.reload();
                 }
                 if (scrollKeys.hasOwnProperty(e.keyCode) && !e.shiftKey) {
+                    e.preventDefault();
+
                     if (mode.getMode() != 'command') {
                         mode.changeMode('command');
                     } else if (mode.getSubMode() != 'scroll' && mode.getMode() == 'command') {
@@ -159,12 +164,16 @@ $(function () {
                     }
                 }
                 if (e.keyCode == 72 && e.shiftKey) {
+                    e.preventDefault();
                     window.history.back();
                 }
                 if (e.keyCode == 76 && e.shiftKey) {
+                    e.preventDefault();
+
                     window.history.forward();
                 }
                 if (e.keyCode == 70) {
+                    e.preventDefault();
                     if (mode.getMode() != 'command') {
                         mode.changeMode('command');
                     } else if ($('.hintsEdge').length != 0) {
