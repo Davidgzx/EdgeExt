@@ -1,7 +1,7 @@
 function Scroller(height) {
     this.duration = height / 16
 
-    this.smoothScroll = function (fun, ) {
+    this.smoothScroll = function (fun) {
         let timer = 0;
         speed = this.duration / 100
         for (let dur = 0; dur <= this.duration; dur += speed) {

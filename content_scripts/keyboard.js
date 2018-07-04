@@ -73,8 +73,8 @@ const scrollKeys = {
 }
 const mode = new Mode();
 const scroller = new Scroller(3200);
+const hintGenerator = new HintGenerator(Object.values(hintKeys).toString().replace(/,/g, ""));
 $(function () {
-    console.log(scroller.pos)
     mode.changeMode('command');
     document.onkeydown = function
     f(e) {
@@ -86,32 +86,32 @@ $(function () {
             if (mode.getSubMode() == 'hints' && hintKeys.hasOwnProperty(e.keyCode)) {
                 let hints = $('.hintsEdge').children(':first-child');
                 let key = e.keyCode;
-                hints.each(function (index, element) {
-                    if (element.innerHTML == String.fromCharCode(key)) {
-                        $(element).remove();
+                hints.each(function (index) {
+                    if (hints[index].innerHTML == String.fromCharCode(key)) {
+                        $(hints[index]).remove();
                     } else {
-                        element.parentNode.remove();
+                        hints[index].parentNode.remove();
                     }
                 });
                 if ($('.hintsEdge').children().length == 0) {
                     let clicking = $('.hintsEdge')[0].href;
-                    hideHints();
+                    hintGenerator.hideHints();
                     mode.changeSubMode('default');
                     clicking.click();
                 }
             }
             if (e.keyCode == 27) {
                 if (mode.getSubMode() == 'hints') {
-                    hideHints();
+                    hintGenerator.hideHints();
                     mode.changeSubMode('default');
                 } else {
-                    hideHints();
+                    hintGenerator.hideHints();
                     mode.changeMode('normal');
                     mode.changeSubMode('default');
                 }
             }
             if (e.keyCode == 84) {
-                hideHints();
+                hintGenerator.hideHints();
                 window.open();
             }
             if (e.keyCode == 82) {
@@ -121,7 +121,7 @@ $(function () {
                 if (mode.getMode() != 'command') {
                     mode.changeMode('command');
                 } else if (mode.getSubMode() != 'scroll' && mode.getMode() == 'command') {
-                    hideHints();
+                    hintGenerator.hideHints();
                     mode.changeSubMode('scroll');
                 }
                 if (mode.getSubMode() == 'scroll') {
@@ -157,14 +157,14 @@ $(function () {
                 if (mode.getMode() != 'command') {
                     mode.changeMode('command');
                 } else if ($('.hintsEdge').length != 0) {
-                    hideHints();
+                    hintGenerator.hideHints();
                     mode.changeSubMode('default');
                 } else if (mode.getSubMode() != 'hints') {
                     mode.changeSubMode('hints');
-                    showHints();
+                    hintGenerator.showHints();
                     $('#hintContainer').bind('click', function () {
                         if (mode.getSubMode() == 'hints') {
-                            hideHints();
+                            hintGenerator.hideHints();
                             mode.changeSubMode('default');
                         }
                     });

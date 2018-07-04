@@ -1,5 +1,6 @@
 html {
     width: 500px;
+    align-self: center;
 }
 .key {
     text-align: center !important; 
