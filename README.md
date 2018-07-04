@@ -5,7 +5,6 @@ This is an individual work, may has bugs and problems.
 Welcome to pull request and create new issues.
 ## Installation
 [Microsoft edge official guidance](https://docs.microsoft.com/en-us/microsoft-edge/extensions/guides/adding-and-removing-extensions)
-
 ## Development roadmap
 | KEYs    | Functions                       | Supported |
 | :-----: | :------------------------------ | :-------: |
