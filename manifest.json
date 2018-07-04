@@ -1,12 +1,20 @@
 {
-    "author": "muyuren",
-    "description": "Get information of the active tab.",
+    "author": "DavidGuo",
+    "description": "A Vim extension for Edge, like CVim",
     "manifest_version": 2,
-    "name": "edgeExt",
-    "version": "1.0",
+    "name": "Vimedge",
+    "version": "0.0.1",
     "permissions": [
         "tabs"
     ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Davidgzx/EdgeExt.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Davidgzx/EdgeExt/issues"
+    },
+    "homepage": "https://github.com/Davidgzx/EdgeExt#readme",
     "content_scripts": [{
         "matches": [
             "<all_urls>"
