@@ -80,10 +80,15 @@ $(function () {
     f(e) {
         e = e || window.event;
         if ($('input').is(':focus') === false) {
-            if (mode.getMode() != 'command' && e.keyCode == 27) {
-                mode.changeMode('command');
+            if (mode.getMode() != 'command') {
+                if (e.keyCode == 27) {
+                    mode.changeMode('command');
+                }
+
             } else {
+
                 if (mode.getSubMode() == 'hints' && hintKeys.hasOwnProperty(e.keyCode)) {
+                    e.preventDefault();
                     let hints = $('.hintsEdge').children(':first-child');
                     let key = e.keyCode;
                     hints.each(function (index) {
@@ -97,10 +102,16 @@ $(function () {
                         let clicking = $('.hintsEdge')[0].href;
                         hintGenerator.hideHints();
                         mode.changeSubMode('default');
+                        // console.log(clicking.tagName.toLocaleLowerCase())
+                        $(clicking).trigger('focus');
                         clicking.click();
+
+
                     }
                 }
                 if (e.keyCode == 27) {
+                    e.preventDefault();
+                    z
                     if (mode.getSubMode() == 'hints') {
                         hintGenerator.hideHints();
                         mode.changeSubMode('default');

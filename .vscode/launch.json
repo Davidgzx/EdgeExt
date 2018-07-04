@@ -9,7 +9,7 @@
         "type": "chrome",
         "request": "launch",
         "name": "启动 Chrome 并打开 localhost",
-        "url":  "D:\\Dev\\edgeExt\\hint-performance.html",
+        "url": "D:\\Dev\\edgeExt\\test\\hint-test.html",
         "webRoot": "${workspaceFolder}"
     }]
 }
