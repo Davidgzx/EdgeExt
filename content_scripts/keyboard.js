@@ -119,7 +119,6 @@ $(function () {
                 }
                 if (e.keyCode == 84) {
                     e.preventDefault();
-
                     hintGenerator.hideHints();
                     window.open();
                 }
