@@ -163,7 +163,6 @@ $(function () {
                 }
                 if (e.keyCode == 76 && e.shiftKey) {
                     e.preventDefault();
-
                     window.history.forward();
                 }
                 if (e.keyCode == 70) {
